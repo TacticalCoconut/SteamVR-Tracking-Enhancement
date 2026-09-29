@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Troubleshooting guide
+    url: https://github.com/TacticalCoconut/SVREnhancement/blob/main/docs/TROUBLESHOOTING.md
+    about: Common problems and what the report's findings mean. Please look here first.
+  - name: Report a security problem privately
+    url: https://github.com/TacticalCoconut/SVREnhancement/security/advisories/new
+    about: Do not open a public issue for a vulnerability.

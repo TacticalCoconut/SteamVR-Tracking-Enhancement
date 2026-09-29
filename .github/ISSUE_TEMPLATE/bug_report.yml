@@ -1,0 +1,62 @@
+name: Something does not work
+description: The driver, Quick Fix, Room Setup or the report misbehaves.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you. Logs make the difference between a guess and a fix.
+        `driver.log` and the report contain your devices' serial numbers; remove them if you prefer.
+  - type: dropdown
+    id: part
+    attributes:
+      label: Which part?
+      options:
+        - Driver (tracking behaviour)
+        - Quick Fix
+        - Room Setup
+        - Report tool
+        - Installing or building
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+      description: Include the time it happened if you can; it lets the problem be matched to the records.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: SVREnhance version
+      description: First line of today's entries in %LOCALAPPDATA%\SVREnhance\driver.log
+      placeholder: "0.2.0"
+    validations:
+      required: true
+  - type: input
+    id: steamvr
+    attributes:
+      label: SteamVR version
+      placeholder: "2.17.10"
+    validations:
+      required: true
+  - type: textarea
+    id: hardware
+    attributes:
+      label: Hardware
+      description: Headset, controllers, trackers, number and generation of base stations. Other tracking add-ons (Space Calibrator, ...).
+    validations:
+      required: true
+  - type: textarea
+    id: driverlog
+    attributes:
+      label: driver.log
+      description: The part of %LOCALAPPDATA%\SVREnhance\driver.log from the session in question.
+      render: text
+  - type: textarea
+    id: report
+    attributes:
+      label: Report output
+      description: Output of `python tools\svrenhance.py report`
+      render: text

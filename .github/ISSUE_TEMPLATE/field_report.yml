@@ -1,0 +1,38 @@
+name: How it went on my setup
+description: You tried SVREnhance, Quick Fix or Room Setup. Tell us the result, good or bad.
+labels: [field report]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Quick Fix, Room Setup and the world correction have so far been tested on simulated data only.
+        A report from a real headset, even "it just worked", is the most useful thing you can send.
+  - type: checkboxes
+    id: tried
+    attributes:
+      label: What did you try?
+      options:
+        - label: Driver filtering during normal play
+        - label: "Quick Fix: floating / clipping"
+        - label: "Quick Fix: tilted world"
+        - label: Room Setup
+  - type: textarea
+    id: result
+    attributes:
+      label: How did it go?
+      description: What worked, what did not, what surprised you. Numbers the tools showed are welcome.
+    validations:
+      required: true
+  - type: textarea
+    id: hardware
+    attributes:
+      label: Hardware and versions
+      description: Headset, controllers, trackers, base stations; SteamVR version; SVREnhance version.
+    validations:
+      required: true
+  - type: textarea
+    id: report
+    attributes:
+      label: Report output (optional)
+      description: Output of `python tools\svrenhance.py report`. Contains device serial numbers; remove them if you prefer.
+      render: text

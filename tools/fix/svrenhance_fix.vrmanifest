@@ -1,0 +1,18 @@
+{
+	"source": "builtin",
+	"applications": [
+		{
+			"app_key": "svrenhance.quickfix",
+			"launch_type": "binary",
+			"binary_path_windows": "svrenhance_fix.exe",
+			"is_dashboard_overlay": true,
+
+			"strings": {
+				"en_us": {
+					"name": "SVREnhance Quick Fix",
+					"description": "Report a floating, clipping or tilted world and get it fixed."
+				}
+			}
+		}
+	]
+}

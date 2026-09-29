@@ -1,0 +1,55 @@
+{
+	"driver_svrenhance": {
+		"filter_enable": true,
+		"lighthouse_only": true,
+
+		"hmd_gate": true,
+		"hmd_bridge": false,
+		"hmd_smooth": false,
+		"hmd_jump_m": 0.04,
+		"hmd_rot_jump_deg": 15.0,
+		"hmd_confirm_ms": 40.0,
+		"hmd_suspect_max_ms": 120.0,
+		"hmd_blend_ms": 120.0,
+		"hmd_blend_max_m": 0.5,
+
+		"controller_gate": true,
+		"controller_bridge": true,
+		"controller_smooth": false,
+		"controller_jump_m": 0.03,
+		"controller_rot_jump_deg": 20.0,
+		"controller_confirm_ms": 50.0,
+		"controller_suspect_max_ms": 200.0,
+		"controller_bridge_max_ms": 300.0,
+		"controller_blend_ms": 150.0,
+		"controller_blend_max_m": 0.5,
+
+		"tracker_gate": true,
+		"tracker_bridge": true,
+		"tracker_smooth": true,
+		"tracker_jump_m": 0.03,
+		"tracker_rot_jump_deg": 20.0,
+		"tracker_confirm_ms": 60.0,
+		"tracker_suspect_max_ms": 250.0,
+		"tracker_bridge_max_ms": 1000.0,
+		"tracker_blend_ms": 200.0,
+		"tracker_blend_max_m": 0.5,
+		"tracker_smooth_min_cutoff": 3.0,
+		"tracker_smooth_beta": 20.0,
+		"tracker_smooth_rot_beta": 2.0,
+
+		"station_move_mm": 10.0,
+		"station_move_deg": 0.5,
+		"station_baseline_s": 30.0,
+
+		"world_fix_rev": 0,
+		"world_fix_enable": false,
+		"world_fix_nx": 0.0,
+		"world_fix_nz": 0.0,
+		"world_fix_pivot_x": 0.0,
+		"world_fix_pivot_y": 0.0,
+		"world_fix_pivot_z": 0.0,
+		"world_fix_ease_ms": 800.0,
+		"world_fix_all_systems": false
+	}
+}
