@@ -1,4 +1,4 @@
-// Readers for what the SVREnhance driver writes to %LOCALAPPDATA%\SVREnhance (status.json,
+// Readers for what the SteamVR Tracking Enhancement driver writes to %LOCALAPPDATA%\SVREnhance (status.json,
 // events.csv, coverage.csv), plus small text helpers. The formats are the driver's own.
 #pragma once
 

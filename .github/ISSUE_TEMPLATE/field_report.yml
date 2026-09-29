@@ -1,5 +1,5 @@
 name: How it went on my setup
-description: You tried SVREnhance, Quick Fix or Room Setup. Tell us the result, good or bad.
+description: You tried SteamVR Tracking Enhancement, Quick Fix or Room Setup. Tell us the result, good or bad.
 labels: [field report]
 body:
   - type: markdown
@@ -27,7 +27,7 @@ body:
     id: hardware
     attributes:
       label: Hardware and versions
-      description: Headset, controllers, trackers, base stations; SteamVR version; SVREnhance version.
+      description: Headset, controllers, trackers, base stations; SteamVR version; SteamVR Tracking Enhancement version.
     validations:
       required: true
   - type: textarea

@@ -9,7 +9,7 @@ tasklist /fi "imagename eq vrserver.exe" 2>nul | find /i "vrserver.exe" >nul && 
 )
 call :find_vrpathreg || exit /b 1
 "%VRPATHREG%" removedriver "%PKG%" || (echo vrpathreg failed. & exit /b 1)
-echo Uninstalled. SteamVR no longer loads SVREnhance.
+echo Uninstalled. SteamVR no longer loads the driver.
 echo Settings under "driver_svrenhance" in steamvr.vrsettings and the logs in "%LOCALAPPDATA%\SVREnhance" were left in place.
 exit /b 0
 

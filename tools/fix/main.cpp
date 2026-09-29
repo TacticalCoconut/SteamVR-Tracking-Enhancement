@@ -1,11 +1,11 @@
-// SVREnhance Quick Fix: a panel in the SteamVR dashboard with which the user reports what is wrong
+// SteamVR Tracking Enhancement, Quick Fix: a panel in the SteamVR dashboard with which the user reports what is wrong
 // with the world ("I'm floating", "I'm clipping into the floor", "the world is tilted") and gets
 // the matching fix.
 //
 //   floating / clipping   the floor height is wrong. A controller lying on the real floor shows by
 //                         how much; the standing origin is moved through IVRChaperoneSetup.
 //   tilted                the tracking universe is not level. A controller laid on the floor at three
-//                         or more spots gives the floor's plane; the SVREnhance driver rotates the
+//                         or more spots gives the floor's plane; the driver rotates the
 //                         world to level it (SteamVR's chaperone can only store a yaw).
 //
 // Every change can be undone, and the first change of a session backs up the chaperone.
@@ -387,7 +387,7 @@ void OnButton(App &a, int id)
 	case kTilted:
 		if (a.ds.hookEffective != 1)
 		{
-			a.message = "Levelling the world is done by the SVREnhance driver, and it is not active. Install the driver and restart SteamVR.";
+			a.message = "Levelling the world is done by the Tracking Enhancement driver, and it is not active. Install the driver and restart SteamVR.";
 			return;
 		}
 		if (!a.vr.settings)
@@ -468,7 +468,7 @@ void Step(App &a)
 		else if (now > a.tVerifyUntil)
 		{
 			a.tVerifyUntil = 0;
-			a.message = F("The correction was stored, but after 15 seconds the driver reports %.2f degrees instead of %.2f. It needs SVREnhance driver 0.2 or newer, "
+			a.message = F("The correction was stored, but after 15 seconds the driver reports %.2f degrees instead of %.2f. It needs the Tracking Enhancement driver, version 0.2 or newer, "
 				"active in SteamVR.", a.ds.worldFixTiltDeg, a.verifyDeg);
 		}
 	}
@@ -603,7 +603,7 @@ void Draw(App &a)
 	if (key == a.shown) return;
 	a.shown = key;
 	printf("\n--- %s\n%s\n", status.c_str(), a.message.c_str());
-	a.panel.Render(L"SVREnhance Quick Fix", W(status), W(a.message), a.buttons);
+	a.panel.Render(L"SteamVR Tracking Enhancement - Quick Fix", W(status), W(a.message), a.buttons);
 	if (a.main != vr::k_ulOverlayHandleInvalid) a.vr.overlay->SetOverlayRaw(a.main, a.panel.Pixels().data(), Panel::kW, Panel::kH, 4);
 	if (a.haveHud && busy) a.hud.SetText(W(a.message));
 }
@@ -673,7 +673,7 @@ int Register(App &a, bool on)
 		if (e != vr::VRApplicationError_None) { printf("AddApplicationManifest(%s) failed: %d\n", manifest.c_str(), int(e)); return 1; }
 		e = a.vr.applications->SetApplicationAutoLaunch(kAppKey, true);
 		if (e != vr::VRApplicationError_None) { printf("SetApplicationAutoLaunch failed: %d\n", int(e)); return 1; }
-		printf("Registered. SVREnhance Quick Fix now starts with SteamVR. Undo with --unregister.\n");
+		printf("Registered. Quick Fix now starts with SteamVR. Undo with --unregister.\n");
 		return 0;
 	}
 	a.vr.applications->SetApplicationAutoLaunch(kAppKey, false);
@@ -771,7 +771,7 @@ int main(int argc, char **argv)
 	a.store.Load();
 
 	if (!a.panel.Init()) { printf("GDI setup failed\n"); a.vr.Shutdown(); return 1; }
-	vr::EVROverlayError oe = a.vr.overlay->CreateDashboardOverlay(kAppKey, "SVREnhance Fix", &a.main, &a.thumb);
+	vr::EVROverlayError oe = a.vr.overlay->CreateDashboardOverlay(kAppKey, "SteamVR Tracking Enhancement", &a.main, &a.thumb);
 	if (oe != vr::VROverlayError_None)
 	{
 		printf("dashboard panel unavailable (error %d); use the keys in this window instead\n", int(oe));
@@ -785,13 +785,13 @@ int main(int argc, char **argv)
 		a.vr.overlay->SetOverlayMouseScale(a.main, &scale);
 		DrawThumbnail(a);
 	}
-	if (!noHud && a.hud.Create(a.vr.overlay, "svrenhance.quickfix.hud", "SVREnhance Quick Fix", err))
+	if (!noHud && a.hud.Create(a.vr.overlay, "svrenhance.quickfix.hud", "SteamVR Tracking Enhancement Quick Fix", err))
 	{
 		a.haveHud = true;
 		a.hud.Visible(false);
 	}
 	Layout(a);
-	printf("SVREnhance Quick Fix is running. Open the SteamVR dashboard and pick the 'FIX' tab, or use the keys (run with --help for the list).\n");
+	printf("SteamVR Tracking Enhancement: Quick Fix is running. Open the SteamVR dashboard and pick the 'FIX' tab, or use the keys (run with --help for the list).\n");
 
 	double tStatus = 0;
 	while (!a.quit)

@@ -32,6 +32,6 @@ Only the latest release receives fixes.
 
 ## Downloads
 
-Official builds are attached to the [releases](https://github.com/TacticalCoconut/SVREnhancement/releases) of this repository
+Official builds are attached to the [releases](https://github.com/TacticalCoconut/SteamVR-Tracking-Enhancement/releases) of this repository
 and are produced by the workflow in `.github/workflows/build.yml` from the tagged source. A DLL from
 anywhere else that is loaded into SteamVR can do whatever SteamVR can; do not install one.

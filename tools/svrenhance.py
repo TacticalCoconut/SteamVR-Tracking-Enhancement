@@ -1,5 +1,5 @@
-"""SVREnhance companion: diagnoses lighthouse tracking from SteamVR's own logs and config plus the
-SVREnhance driver's telemetry, and shows the driver's live status.
+"""SteamVR Tracking Enhancement, report tool: diagnoses lighthouse tracking from SteamVR's own logs and config plus the
+driver's telemetry, and shows the driver's live status.
 
   python svrenhance.py report [--html report.html]   one-off diagnosis (default)
   python svrenhance.py live                          live driver status, refreshed every second
@@ -226,27 +226,27 @@ def analyze():
                          ". This happens on very fast swings; SteamVR recovers optically, which is exactly the "
                          "kind of correction the driver eases in instead of snapping."))
 
-    # ---- SVREnhance driver telemetry ----
+    # ---- driver telemetry ----
     if status:
         hook = status.get("hook", {})
         if not hook.get("installed"):
-            findings.append(("high", "SVREnhance driver", "Driver is loaded but its pose hook is not installed."))
+            findings.append(("high", "Driver", "Driver is loaded but its pose hook is not installed."))
         elif hook.get("effective") is False:
-            findings.append(("high", "SVREnhance driver",
+            findings.append(("high", "Driver",
                              "The pose hook is installed but no poses pass through it: filtering is NOT active."))
         elif not hook.get("calls"):
-            findings.append(("info", "SVREnhance driver",
+            findings.append(("info", "Driver",
                              f"Hook installed, no poses yet (status from {status.get('time')}, uptime {status.get('uptime_s', 0):.0f} s)."))
         else:
-            findings.append(("ok", "SVREnhance driver", f"Pose hook active ({hook.get('calls', 0):,} poses processed)."))
+            findings.append(("ok", "Driver", f"Pose hook active ({hook.get('calls', 0):,} poses processed)."))
         for w in status.get("warnings", []):
-            findings.append(("high", "SVREnhance live warning", w))
+            findings.append(("high", "Live warning", w))
         for d in status.get("devices", []):
             if d.get("jitter_mm", 0) > 1.0:
                 findings.append(("medium", "Jitter", f"{d['serial']} ({d['class']}) jitters {d['jitter_mm']:.2f} mm "
                                  "while still. Poor station coverage of that spot or reflections are likely."))
     else:
-        findings.append(("info", "SVREnhance driver",
+        findings.append(("info", "Driver",
                          f"No live telemetry at {TELEMETRY} (driver not installed, or SteamVR not running)."))
 
     # Hotspots over the last 12 h, ranked by glitches per presence sample so that places where the
@@ -291,8 +291,9 @@ def analyze():
 
 
 def print_report(r):
-    print("SVREnhance tracking report")
-    print("=" * 26)
+    title = "SteamVR Tracking Enhancement - tracking report"
+    print(title)
+    print("=" * len(title))
     if r["span"][0]:
         print(f"Logs: {', '.join(r['files'])}\n      {r['span'][0]} .. {r['span'][1]}")
     print()
@@ -361,7 +362,7 @@ def write_html(r, path):
     adv = "".join(f"<li>{html.escape(a)}</li>" for a in r["advice"])
     legend = " ".join(f'<span><i style="background:{c}"></i>{k.replace("_", " ")}</span>' for k, c in colors.items())
     doc = f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1"><title>SVREnhance Report</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Tracking Report</title>
 <style>
 :root{{--bg:#f7f7f5;--panel:#fff;--fg:#1d1d1b;--muted:#6b6b66;--line:#dcdcd6}}
 @media (prefers-color-scheme:dark){{:root{{--bg:#161615;--panel:#1f1f1d;--fg:#ececea;--muted:#9a9a94;--line:#33332f}}}}
@@ -370,7 +371,7 @@ main{{max-width:900px;margin:0 auto}} svg{{width:100%;max-width:600px;border:1px
 li{{margin:6px 0}} li.high b{{color:#d6453d}} li.medium b{{color:#e8912d}} li.ok b{{color:#2f9a58}}
 .legend span{{margin-right:14px;font-size:13px;color:var(--muted)}} .legend i{{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px}}
 </style></head><body><main>
-<h1>SVREnhance tracking report</h1><p style="color:var(--muted)">Generated {datetime.now():%Y-%m-%d %H:%M}</p>
+<h1>Tracking report</h1><p style="color:var(--muted)">SteamVR Tracking Enhancement &middot; generated {datetime.now():%Y-%m-%d %H:%M}</p>
 <h2>Findings</h2><ul>{rows}</ul>{f"<h2>What to do</h2><ul>{adv}</ul>" if adv else ""}
 <h2>Play-space map (top-down, x/z)</h2><p class="legend">{legend} <span>grey = where devices have been, triangles = base stations</span></p>
 {"".join(svg)}
@@ -388,7 +389,7 @@ def live():
                 print(f"Waiting for {TELEMETRY / 'status.json'} (is SteamVR running with the driver installed?)")
             else:
                 h = s.get("hook", {})
-                print(f"SVREnhance {s.get('version')}  {s.get('time')}  hook installed={h.get('installed')} "
+                print(f"SteamVR Tracking Enhancement {s.get('version')}  {s.get('time')}  hook installed={h.get('installed')} "
                       f"effective={h.get('effective')} poses={h.get('calls', 0):,}")
                 print(f"\n{'serial':14} {'class':10} {'state':22} {'Hz':>6} {'glitch':>6} {'reloc':>5} {'bridge':>6} "
                       f"{'>max':>4} {'gaps':>4} {'disc':>4} {'jitter':>7}")

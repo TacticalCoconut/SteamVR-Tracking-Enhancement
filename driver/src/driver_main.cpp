@@ -22,7 +22,7 @@ public:
 		m_tHook = m_tSettings = m_tCheck = 0;
 		LoadSettings();
 		StartTelemetry();
-		Log("SVREnhance %s loaded (filter_enable=%d)", SVR_VERSION, int(CurSettings().filterEnable));
+		Log("SteamVR Tracking Enhancement %s loaded (filter_enable=%d)", SVR_VERSION, int(CurSettings().filterEnable));
 		return vr::VRInitError_None;
 	}
 

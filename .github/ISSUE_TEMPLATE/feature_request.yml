@@ -1,5 +1,5 @@
 name: Idea or request
-description: Something SVREnhance should do, or do differently.
+description: Something SteamVR Tracking Enhancement should do, or do differently.
 labels: [enhancement]
 body:
   - type: textarea

@@ -1,4 +1,4 @@
-// Shared state for the SVREnhance driver: settings, per-device filter state, globals.
+// Shared state for the SteamVR Tracking Enhancement driver: settings, per-device filter state, globals.
 #pragma once
 
 #include <atomic>

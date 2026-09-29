@@ -9,7 +9,7 @@
 
 			"strings": {
 				"en_us": {
-					"name": "SVREnhance Quick Fix",
+					"name": "SteamVR Tracking Enhancement: Quick Fix",
 					"description": "Report a floating, clipping or tilted world and get it fixed."
 				}
 			}

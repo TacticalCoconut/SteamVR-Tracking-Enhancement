@@ -27,20 +27,20 @@ jobs:
         shell: pwsh
         run: |
           $version = if ($env:GITHUB_REF_TYPE -eq 'tag') { $env:GITHUB_REF_NAME } else { "dev-$($env:GITHUB_SHA.Substring(0, 7))" }
-          $root = "package/SVREnhance"
+          $root = "package/SteamVR-Tracking-Enhancement"
           New-Item -ItemType Directory -Force "$root/tools", "$root/third_party/openvr", "$root/docs" | Out-Null
           Copy-Item dist -Destination $root -Recurse
           Copy-Item install.cmd, uninstall.cmd, README.md, LICENSE, CHANGELOG.md -Destination $root
           Copy-Item tools/svrenhance.py -Destination "$root/tools"
           Copy-Item docs/*.md -Destination "$root/docs"
           Copy-Item third_party/openvr/LICENSE -Destination "$root/third_party/openvr"
-          $zip = "SVREnhance-$version-win64.zip"
+          $zip = "SteamVR-Tracking-Enhancement-$version-win64.zip"
           Compress-Archive -Path $root -DestinationPath $zip
           "ZIP=$zip" >> $env:GITHUB_ENV
 
       - uses: actions/upload-artifact@v4
         with:
-          name: SVREnhance-win64
+          name: SteamVR-Tracking-Enhancement-win64
           path: ${{ env.ZIP }}
           if-no-files-found: error
 
@@ -53,7 +53,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: SVREnhance-win64
+          name: SteamVR-Tracking-Enhancement-win64
 
       - name: Publish release
         shell: pwsh
@@ -61,4 +61,4 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           $zip = (Get-ChildItem *.zip | Select-Object -First 1).FullName
-          gh release create $env:GITHUB_REF_NAME $zip --repo $env:GITHUB_REPOSITORY --title "SVREnhance $env:GITHUB_REF_NAME" --generate-notes
+          gh release create $env:GITHUB_REF_NAME $zip --repo $env:GITHUB_REPOSITORY --title "SteamVR Tracking Enhancement $env:GITHUB_REF_NAME" --generate-notes

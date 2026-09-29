@@ -1,4 +1,4 @@
-# How SVREnhance works
+# How SteamVR Tracking Enhancement works
 
 This page explains the mechanisms in enough detail to judge them, tune them, or change them. File
 names refer to `driver/src/` unless stated otherwise.
@@ -8,16 +8,16 @@ names refer to `driver/src/` unless stated otherwise.
 SteamVR loads tracking drivers as DLLs into its server process, `vrserver.exe`. Each driver hands
 poses to SteamVR by calling `IVRServerDriverHost::TrackedDevicePoseUpdated(device, pose, size)`.
 
-SVREnhance is a driver that adds no devices. After every driver has initialised (on the first
+The driver adds no devices of its own. After every driver has initialised (on the first
 `RunFrame`) it replaces one entry in the interface's function table — the slot for
 `TrackedDevicePoseUpdated` — with its own function (`hook.cpp`). From then on every pose from every
 driver passes through it:
 
 ```
-lighthouse driver ──► SVREnhance ──► (Space Calibrator, if installed) ──► vrserver
+lighthouse driver ──► Tracking Enhancement ──► (Space Calibrator, if installed) ──► vrserver
 ```
 
-Space Calibrator patches the *code* of the same function; SVREnhance patches the *table entry* that
+Space Calibrator patches the *code* of the same function; this driver patches the *table entry* that
 points to it and calls through to whatever was there. Neither overwrites the other.
 
 Safety measures in the hook:

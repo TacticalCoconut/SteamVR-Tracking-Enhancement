@@ -1,15 +1,17 @@
-# SVREnhance
+# SteamVR Tracking Enhancement
 
-**Steadier lighthouse tracking for SteamVR, and a button for when the world is wrong.**
+**Steadier base-station tracking for SteamVR — and a button for when the floor or the world is wrong.**
 
-SVREnhance is a SteamVR add-on for base-station ("lighthouse") tracked headsets, controllers and
-trackers. It sits between the tracking driver and SteamVR, catches tracking glitches before your game
-sees them, and gives you a panel inside VR to fix a floor that is too high, too low, or tilted.
+SteamVR Tracking Enhancement is an add-on for headsets, controllers and trackers that are tracked by
+base stations ("lighthouse"). It sits between the tracking driver and SteamVR, catches tracking
+glitches before your game sees them, tells you what causes them, and gives you a panel inside VR to
+fix a floor that is too high, too low, or tilted.
 
-[![build](https://github.com/TacticalCoconut/SVREnhancement/actions/workflows/build.yml/badge.svg)](https://github.com/TacticalCoconut/SVREnhancement/actions/workflows/build.yml)
+[![build](https://github.com/TacticalCoconut/SteamVR-Tracking-Enhancement/actions/workflows/build.yml/badge.svg)](https://github.com/TacticalCoconut/SteamVR-Tracking-Enhancement/actions/workflows/build.yml)
 [![license: GPL-3.0](https://img.shields.io/badge/license-GPL--3.0-blue.svg)](LICENSE)
 
-> SVREnhance is an independent project. It is not made, endorsed or supported by Valve.
+> An independent project: not made, endorsed or supported by Valve. SteamVR is a trademark of Valve
+> Corporation, used here only to say what this add-on works with.
 
 ---
 
@@ -21,6 +23,20 @@ sees them, and gives you a panel inside VR to fix a floor that is too high, too 
 | **Quick Fix** | A dashboard panel: *I'm floating*, *I'm clipping into the floor*, *The world is tilted* — measures the problem and fixes it | when you start it |
 | **Room Setup** | An alternative room setup: floor from several points, boundary snapped to your walls | when you start it |
 | **Report** | Reads SteamVR's logs and the driver's records, tells you what is wrong with your setup and where in the room | on your desktop |
+
+### Names you will see
+
+The project is called **SteamVR Tracking Enhancement**. Its files, folders and settings carry the
+short name `svrenhance`, so that is what to look for on your PC:
+
+| Where | Name |
+|---|---|
+| SteamVR's add-on list | `svrenhance` |
+| The driver | `driver_svrenhance.dll` |
+| Settings section in `steamvr.vrsettings` | `driver_svrenhance` |
+| Logs and records | `%LOCALAPPDATA%\SVREnhance\` |
+| Tools | `svrenhance_fix.exe`, `svrenhance_roomsetup.exe`, `svrenhance.py` |
+| SteamVR dashboard tab | **FIX** |
 
 ## Who it is for
 
@@ -42,7 +58,7 @@ cracked controller ring still needs replacing, though the report will help you f
 
 ## What it fixes
 
-| You notice | What is happening | What SVREnhance does |
+| You notice | What is happening | What the add-on does |
 |---|---|---|
 | A controller or tracker jumps for an instant | Laser light bounced off a reflective surface | Holds the jump back. If it is gone within ~50 ms it was a glitch and is dropped |
 | A device snaps to a new place | Tracking corrected itself | Small corrections are eased in over 150 ms; large ones (over 50 cm) snap, as before |
@@ -85,7 +101,7 @@ four base stations, a room with reflective surfaces). One session on one setup �
 flowchart LR
     A[Base stations] --> B[SteamVR lighthouse driver]
     B -->|pose| C
-    subgraph C [SVREnhance driver]
+    subgraph C [Tracking Enhancement driver]
         direction TB
         C1[World correction<br/>level a tilted universe] --> C2[Glitch gate<br/>is this jump physically possible?]
         C2 --> C3[Dropout bridge<br/>hold through short losses]
@@ -97,7 +113,7 @@ flowchart LR
     F -.-> G[Report / Quick Fix / Room Setup]
 ```
 
-Every driver in SteamVR hands its poses to SteamVR through one function. SVREnhance replaces the
+Every driver in SteamVR hands its poses to SteamVR through one function. This driver replaces the
 entry for that function in SteamVR's interface table with its own, looks at each pose, and passes it
 on. That is the same place [OpenVR Space Calibrator](https://github.com/pushrax/OpenVR-SpaceCalibrator)
 works, and the two run together.
@@ -143,7 +159,7 @@ before they change it, and SteamVR's own Room Setup puts things right in a minut
 
 ### From a release
 
-1. Download the latest zip from [Releases](https://github.com/TacticalCoconut/SVREnhancement/releases) and unpack it somewhere
+1. Download the latest zip from [Releases](https://github.com/TacticalCoconut/SteamVR-Tracking-Enhancement/releases) and unpack it somewhere
    permanent (SteamVR loads the driver from that folder).
 2. Close SteamVR.
 3. Run `install.cmd`.
@@ -155,8 +171,8 @@ You need [Build Tools for Visual Studio](https://visualstudio.microsoft.com/down
 newer) with the *Desktop development with C++* workload.
 
 ```bat
-git clone https://github.com/TacticalCoconut/SVREnhancement.git
-cd SVREnhancement
+git clone https://github.com/TacticalCoconut/SteamVR-Tracking-Enhancement.git
+cd SteamVR-Tracking-Enhancement
 test.cmd
 build.cmd
 install.cmd
@@ -167,7 +183,7 @@ install.cmd
 Open `%LOCALAPPDATA%\SVREnhance\driver.log` after SteamVR has run for half a minute. You should see:
 
 ```
-SVREnhance 0.2.0 loaded (filter_enable=1)
+SteamVR Tracking Enhancement 0.2.0 loaded (filter_enable=1)
 pose hook installed: ...
 device 0: class 1 serial '...' system 'lighthouse' model '...'
 pose hook verified: poses from other drivers are flowing through it
@@ -175,7 +191,7 @@ pose hook verified: poses from other drivers are flowing through it
 
 If it says `filtering is NOT active`, the hook did not reach the other drivers on your SteamVR
 version. Nothing is harmed — the driver only monitors — but please
-[open an issue](https://github.com/TacticalCoconut/SVREnhancement/issues/new/choose) with your SteamVR version.
+[open an issue](https://github.com/TacticalCoconut/SteamVR-Tracking-Enhancement/issues/new/choose) with your SteamVR version.
 
 ### Uninstall
 
@@ -271,7 +287,7 @@ Per device class (prefix `hmd_`, `controller_` or `tracker_`):
 
 ## Limits, stated plainly
 
-- SteamVR's lighthouse solver is closed. SVREnhance works on the poses it produces, not on the raw
+- SteamVR's lighthouse solver is closed. The add-on works on the poses it produces, not on the raw
   sensor data. SteamVR already rejects most reflected light itself; the driver catches what still
   gets through. **Covering the reflective surface remains the real cure** — the report helps you find it.
 - It cannot change base-station channels or fix radio interference. It detects both and tells you.
@@ -287,7 +303,7 @@ Per device class (prefix `hmd_`, `controller_` or `tracker_`):
 
 | Problem | What to do |
 |---|---|
-| `driver.log` does not exist | The driver did not load. Run `install.cmd` again with SteamVR closed; check *SteamVR → Settings → Startup/Shutdown → Manage Add-ons* |
+| `driver.log` does not exist | The driver did not load. Run `install.cmd` again with SteamVR closed; check *SteamVR → Settings → Startup/Shutdown → Manage Add-ons*, where it is listed as `svrenhance` |
 | A device lags behind a fast swing | A threshold is too tight for you. Raise that class's `jump_m` or `max_accel` |
 | A controller "sticks" for a moment | That is a bridged dropout. Lower `controller_bridge_max_ms`, or set `controller_bridge` to `false` |
 | A tool says *SteamVR is running but is not accepting new applications* | Restart SteamVR |
@@ -318,7 +334,9 @@ send. See [CONTRIBUTING.md](CONTRIBUTING.md). Security issues: [SECURITY.md](SEC
 
 ## License and credits
 
-SVREnhance is free software under the [GNU General Public License v3.0](LICENSE).
+SteamVR Tracking Enhancement is free software under the [GNU General Public License v3.0](LICENSE).
+SteamVR and Valve Index are trademarks of Valve Corporation; other product names belong to their
+owners. They are named to describe compatibility.
 
 - OpenVR headers © Valve Corporation, [BSD-3-Clause](third_party/openvr/LICENSE).
 - The approach of intercepting pose updates inside SteamVR follows

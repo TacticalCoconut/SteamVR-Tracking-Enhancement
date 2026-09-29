@@ -38,7 +38,7 @@ public:
 		m_bmp = CreateDIBSection(m_dc, &bi, DIB_RGB_COLORS, &m_bits, nullptr, 0);
 		if (!m_dc || !m_bmp || !m_bits) return false;
 		SelectObject(m_dc, m_bmp);
-		m_title = MakeFont(-46, FW_SEMIBOLD);
+		m_title = MakeFont(-38, FW_SEMIBOLD); // the full project name must fit on one line
 		m_text = MakeFont(-30, FW_NORMAL);
 		m_btn = MakeFont(-30, FW_SEMIBOLD);
 		m_rgba.resize(size_t(kW) * kH * 4);

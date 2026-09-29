@@ -1,4 +1,4 @@
-// SVREnhance Room Setup: an alternative to SteamVR's Room Setup built on the driver's filtered poses
+// SteamVR Tracking Enhancement, Room Setup: an alternative to SteamVR's Room Setup built on the driver's filtered poses
 // and telemetry. Floor from a multi-point plane fit (with a tilt readout), boundary from a
 // trigger-held trace that is simplified and optionally snapped to right-angled walls, play area as
 // the largest rectangle that fits, forward either as you faced or square to the walls. Everything is
@@ -221,7 +221,7 @@ bool StepInit(Ctx &c)
 			c.tr.stations.size());
 		if (!haveLive || !c.tr.raw[0].bPoseIsValid || !c.tr.stnd[0].bPoseIsValid)
 		{
-			c.ui.Show("SVREnhance Room Setup\n\nWaiting for the headset to track (put it where the base stations see it)...\n" + devs);
+			c.ui.Show("SteamVR Tracking Enhancement - Room Setup\n\nWaiting for the headset to track (put it where the base stations see it)...\n" + devs);
 			continue;
 		}
 		double e1 = 0, e2 = 0;
@@ -231,7 +231,7 @@ bool StepInit(Ctx &c)
 			printf("standing matrix convention: %s (residuals %.4f / %.4f m)\n", c.matrixIsStdToRaw ? "standing->raw" : "raw->standing", e1, e2);
 			break;
 		}
-		c.ui.Show(F("SVREnhance Room Setup\n\nChecking the tracking frames... (residuals %.3f / %.3f m)\n%s", e1, e2, devs.c_str()));
+		c.ui.Show(F("SteamVR Tracking Enhancement - Room Setup\n\nChecking the tracking frames... (residuals %.3f / %.3f m)\n%s", e1, e2, devs.c_str()));
 	}
 	if (!decided)
 	{
@@ -253,8 +253,8 @@ bool StepInit(Ctx &c)
 		}
 	}
 
-	std::string drv = !c.ds.present ? "SVREnhance driver telemetry: not found (poses are unfiltered; sampling still works)"
-		: c.ds.hookEffective == 1 ? "SVREnhance driver: active" : "SVREnhance driver: loaded but NOT filtering";
+	std::string drv = !c.ds.present ? "Tracking Enhancement driver: not found (poses are unfiltered; sampling still works)"
+		: c.ds.hookEffective == 1 ? "Tracking Enhancement driver: active" : "Tracking Enhancement driver: loaded but NOT filtering";
 	std::string warn;
 	for (const std::string &w : c.ds.warnings) warn += "\n! " + w;
 	std::string calS = cal == vr::ChaperoneCalibrationState_OK ? "OK" : F("state %d", int(cal));
@@ -273,7 +273,7 @@ bool StepInit(Ctx &c)
 	while (!c.quit)
 	{
 		c.Tick();
-		c.ui.Show("SVREnhance Room Setup\n\n" + devs + "\n" + drv + "\nCurrent chaperone calibration: " + calS + warn +
+		c.ui.Show("SteamVR Tracking Enhancement - Room Setup\n\n" + devs + "\n" + drv + "\nCurrent chaperone calibration: " + calS + warn +
 			"\n\nFour steps: floor, centre/forward, boundary, review. Nothing is saved until you confirm at the end."
 			"\n\nTrigger or Enter = start.   Esc = quit.");
 		if (c.in.Confirm()) return true;
@@ -551,7 +551,7 @@ std::string WritePreview(const Ctx &c, const Plan &p, double yFloorRaw, std::vec
 		"@media (prefers-color-scheme:dark){:root{--bg:#161615;--panel:#1f1f1d;--fg:#ececea;--muted:#9a9a94}}"
 		"body{background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,sans-serif;margin:0;padding:24px 16px}main{max-width:760px;margin:0 auto}"
 		"svg{width:100%;max-width:680px;border:1px solid var(--muted);border-radius:8px}li{margin:6px 0}</style></head><body><main>"
-		"<h1>SVREnhance room setup preview</h1><p>Standing frame, forward is up. Blue: boundary (" + F("%zu walls, %.2f m2", p.polyStd.size(), p.area) +
+		"<h1>Room setup preview</h1><p>SteamVR Tracking Enhancement</p><p>Standing frame, forward is up. Blue: boundary (" + F("%zu walls, %.2f m2", p.polyStd.size(), p.area) +
 		"). Green: play area " + F("%.2f x %.2f m", p.rect.W(), p.rect.H()) + ". Orange: floor samples. Red: pose glitches (last 12 h). "
 		"Grey: where devices have tracked. Triangles: base stations.</p>" +
 		F("<p>Floor: %zu samples, tilt %.2f deg, rms %.1f mm, controller offset %.1f cm. Floor height in raw space: %.3f m. Forward %s (%+.1f deg from where you faced).</p>",
@@ -728,7 +728,7 @@ int main(int argc, char **argv)
 	printf("OpenVR runtime: %s\n", c.vr.dllPath.c_str());
 	if (!noOverlay)
 	{
-		if (c.ui.ov.Create(c.vr.overlay, "svrenhance.roomsetup.hud", "SVREnhance Room Setup", err)) c.ui.overlay = true;
+		if (c.ui.ov.Create(c.vr.overlay, "svrenhance.roomsetup.hud", "SteamVR Tracking Enhancement Room Setup", err)) c.ui.overlay = true;
 		else printf("overlay unavailable (%s); instructions on this console only\n", err.c_str());
 	}
 	c.ds = ReadDriverStatus();

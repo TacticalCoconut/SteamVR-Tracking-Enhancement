@@ -13,8 +13,9 @@ python tools\svrenhance.py report --html report.html
 SteamVR did not load the driver.
 
 1. Close SteamVR and run `install.cmd` again. It refuses to run while SteamVR is open.
-2. In SteamVR: *Settings → Startup / Shutdown → Manage Add-ons*. SVREnhance must be on. SteamVR
-   switches add-ons off after a crash ("safe mode"); switch it back on there.
+2. In SteamVR: *Settings → Startup / Shutdown → Manage Add-ons*. The add-on is listed under its short
+   name, `svrenhance`, and must be on. SteamVR switches add-ons off after a crash ("safe mode");
+   switch it back on there.
 3. The driver's folder must still be where it was when you installed. If you moved it, run
    `uninstall.cmd` from the old place (or remove the entry from
    `%LOCALAPPDATA%\openvr\openvrpaths.vrpath`), then `install.cmd` from the new one.

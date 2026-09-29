@@ -1,6 +1,12 @@
 # Changelog
 
+All notable changes to SteamVR Tracking Enhancement.
+
 ## 0.2.0
+
+The project is named **SteamVR Tracking Enhancement** (working name until now: SVREnhance). File
+names, the settings section `driver_svrenhance` and the folder `%LOCALAPPDATA%\SVREnhance` keep the
+short name, so an existing installation, its settings and its records carry over unchanged.
 
 ### Added
 
